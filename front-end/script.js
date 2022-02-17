@@ -226,6 +226,7 @@ const validarMeses = id => {
   const { elementoDescricao, elementoInput, elementoNotificacao } = buscarElementos(containerInput)
   const value = elementoInput.value
   dadosDaAplicacao.prazo = ''
+  verificarSePodeSimular()
   if(isNaN(value)) {
     criarNotificacao(elementoDescricao, elementoInput, elementoNotificacao)
   }else {
@@ -239,6 +240,7 @@ const validarRentabilidade = (id, target) => {
   const containerInput = document.getElementsByClassName('principal__conteudo__container__inputs__input')[id]
   const { elementoDescricao, elementoInput, elementoNotificacao } = buscarElementos(containerInput)
   dadosDaAplicacao.rentabilidade = ''
+  verificarSePodeSimular()
   const value = elementoInput.value
   if(isNaN(value)) {
     criarNotificacao(elementoDescricao, elementoInput, elementoNotificacao)
@@ -254,6 +256,7 @@ const validarInputDoTipoMonetario = (id, target = "", tipoAporte) => {
   const containerInput = document.getElementsByClassName('principal__conteudo__container__inputs__input')[id]
   const { elementoDescricao, elementoInput, elementoNotificacao } = buscarElementos(containerInput)
   dadosDaAplicacao[tipoAporte] = ''
+  verificarSePodeSimular()
   const value = elementoInput.value
   const valorFormatadoComNotificacao = checarFormatacaoParaDinheiro(value)
   if(valorFormatadoComNotificacao.notificacao) {
