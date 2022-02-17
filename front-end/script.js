@@ -58,7 +58,7 @@ const testarSeOsDadosEstaoCompletos = () => {
 const simularInvestimento = () => {
   const control = testarSeOsDadosEstaoCompletos()
   if(control) {
-    window.alert('Preencha todos os dados, por favor.')
+    window.alert('Preencha todos os dados, por favor.') 
   }else {
     const tipoRendimento = dadosDaAplicacao.rendimento
     const tipoDeIndexacaoLocal = dadosDaAplicacao.taxaDeIndex
@@ -151,6 +151,7 @@ const adicionarGrafico = comAporteSemAporte => {
       alturaComAporte = comAporteSemAporte.comAporte[i]
       alturaSemAporte = comAporteSemAporte.semAporte[i]
     }
+    mes = i + 1
     divPrincipal.appendChild(criarLinhaDoGrafico(mes, alturaComAporte, alturaSemAporte))
   }
 }
