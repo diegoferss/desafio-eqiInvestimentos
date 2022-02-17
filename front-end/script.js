@@ -11,13 +11,13 @@ const dadosDaAplicacao = {
   cdi: ''
 }
 
-const preencherDadosComGithub = data => {
+const preencherDadosComBancoDeDadosLocal = dadoIpcaCdi => {
   const ipca = document.getElementById("ipca")
   const cdi = document.getElementById("cdi")
-  dadosDaAplicacao.cdi = data[0].valor
-  dadosDaAplicacao.ipca = data[1].valor
-  cdi.value = formatarParaPorcentagem(data[0].valor)
-  ipca.value = formatarParaPorcentagem(data[1].valor)
+  dadosDaAplicacao.cdi = dadoIpcaCdi[0].valor
+  dadosDaAplicacao.ipca = dadoIpcaCdi[1].valor
+  cdi.value = formatarParaPorcentagem(dadoIpcaCdi[0].valor)
+  ipca.value = formatarParaPorcentagem(dadoIpcaCdi[1].valor)
 }
 
 const limparDados = () => {
@@ -36,13 +36,13 @@ const limparDados = () => {
   }
 }
 
-async function pegarDadosDoGithub() {
+async function pegarDadosDoBancoDeDadosLocal() {
   const response = await fetch('http://localhost:3000/indicadores?nome=cdi&nome=ipca')
-  const data = await response.json()
-  preencherDadosComGithub(data)
+  const dadoIpcaCdi = await response.json()
+  preencherDadosComBancoDeDadosLocal(dadoIpcaCdi)
 }
 
-pegarDadosDoGithub()
+pegarDadosDoBancoDeDadosLocal()
 
 // Realizar alguma ação na tela
 
@@ -139,9 +139,10 @@ const adicionarGrafico = comAporteSemAporte => {
   if(mediaDosValoresComAporte > 100)
     pegarApenasOsDoisPrimeirosNumeros = true
 
+  let alturaComAporte = 0
+  let alturaSemAporte = 0
+  let mes = 0
   for(let i = 0; i < quantidadeDeMeses; i++) {
-    let alturaComAporte = 0
-    let alturaSemAporte = 0
     if(pegarApenasOsDoisPrimeirosNumeros) {
       alturaComAporte = comAporteSemAporte.comAporte[i].toString().substring(0, 3) / 1.3
       alturaSemAporte = comAporteSemAporte.semAporte[i].toString().substring(0, 3) / 3
@@ -150,7 +151,6 @@ const adicionarGrafico = comAporteSemAporte => {
       alturaComAporte = comAporteSemAporte.comAporte[i]
       alturaSemAporte = comAporteSemAporte.semAporte[i]
     }
-    const mes = i + 1
     divPrincipal.appendChild(criarLinhaDoGrafico(mes, alturaComAporte, alturaSemAporte))
   }
 }
@@ -333,5 +333,9 @@ const formatarParaPorcentagem = valor => `${valor}%`
 
 // Funções testadas com testes unitários usando jest
 
-module.exports = { checarFormatacaoParaDinheiro, pegarPrimeiroNome, formatarParaDinheiro,
-                   formatarParaPorcentagem }
+module.exports =  {
+  checarFormatacaoParaDinheiro, 
+  pegarPrimeiroNome, 
+  formatarParaDinheiro,
+  formatarParaPorcentagem 
+}
