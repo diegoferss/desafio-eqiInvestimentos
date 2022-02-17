@@ -6,7 +6,7 @@
 
 ## Resumo
 
-Esse README representa as propriedades funcionais da aplicação front-end do desafio da EQI Investimentos, que tem por foco proporcionar um método rápido e fácil de simular investimentos para usuários que tem interesse na área, mas não tem muito conhecimento.
+Esse README representa as propriedades funcionais da aplicação front-end do desafio da EQI Investimentos, que tem por foco proporcionar um método rápido e fácil de simular investimentos para usuários que tem interesse na área, mas não estão muito seguros em investir.
 
 ## Requisitos funcionais
 
