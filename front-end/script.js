@@ -151,7 +151,7 @@ const adicionarGrafico = comAporteSemAporte => {
       alturaComAporte = comAporteSemAporte.comAporte[i]
       alturaSemAporte = comAporteSemAporte.semAporte[i]
     }
-    mes = i + 1
+    mes = i
     divPrincipal.appendChild(criarLinhaDoGrafico(mes, alturaComAporte, alturaSemAporte))
   }
 }
