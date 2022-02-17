@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Investimentos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="cabecalho">
+    <h1 class="cabecalho__titulo">Simulador de Investimentos</h1>
+  </header>
+
+  <main class="principal">
+    <section class="principal__conteudo principal__conteudo--simulacao">
+      <h2 class="principal__conteudo__subtitulo">Simulador</h2>
+      <article class="principal__conteudo__container">
+        <section class="principal__conteudo__container__inputs">
+          <div class="principal__conteudo__container__inputs__item">
+            <p class="principal__conteudo__container__inputs__item__termo">Rendimento</p>
+            <abbr title="Rendimento">
+              <p class="principal__conteudo__container__inputs__item__explicacao">i</p>
+            </abbr>
+          </div>
+          <div class="principal__conteudo__container__inputs__button">
+            <button class="principal__conteudo__container__inputs__button__botao principal__conteudo__container__inputs__button__botao--left" name="rendimento" onclick="botaoSelecionado(0, 'rendimento', ['bruto', 'liquido'])">Bruto</button>
+            <button class="principal__conteudo__container__inputs__button__botao principal__conteudo__container__inputs__button__botao--right" name="rendimento" onclick="botaoSelecionado(1, 'rendimento', ['bruto', 'liquido'])">Liquído</button>
+          </div>
+          <div class="principal__conteudo__container__inputs__input">
+            <p>Aporte Inicial</p>
+            <input type="text" class="principal__conteudo__container__inputs__input__entrada" oninput="validarInputDoTipoMonetario(0, '', 'aptInicial')" onblur="validarInputDoTipoMonetario(0, 'resultado', 'aptInicial')" onclick="pegarValor(0)">
+            <p class="invalido">Aporte deve ser um número</p>
+          </div>
+          <div class="principal__conteudo__container__inputs__input">
+            <p>Prazo (em meses)</p>
+            <input type="text" class="principal__conteudo__container__inputs__input__entrada" oninput="validarMeses(1)" name="prazo">
+            <p class="invalido">Prazo deve ser um número</p>
+          </div>
+          <div class="principal__conteudo__container__inputs__input">
+            <p>IPCA (ao ano)</p>
+            <input type="text" id="ipca" class="principal__conteudo__container__inputs__input__entrada" disabled>
+          </div>
+          <button class="principal__conteudo__container__inputs__acao" onclick="limparDados()" name="limpar">Limpar campos</button>
+        </section>
+
+        <section class="principal__conteudo__container__inputs principal__conteudo__container__inputs--right">
+          <div class="principal__conteudo__container__inputs__item principal__conteudo__container__inputs__item--right">
+            <p class="principal__conteudo__container__inputs__item__termo">Taxa de Indexação</p>
+            <abbr title="Taxa de Indexação">
+              <p class="principal__conteudo__container__inputs__item__explicacao">i</p>
+            </abbr>
+          </div>
+          <div class="principal__conteudo__container__inputs__button principal__conteudo__container__inputs__button--right">
+            <button class="principal__conteudo__container__inputs__button__botao principal__conteudo__container__inputs__button__botao--left" name="taxaDeIndex" onclick="botaoSelecionado(0, 'taxaDeIndex', ['pre', 'pos', 'fixado'])">PRÉ</button>
+            <button class="principal__conteudo__container__inputs__button__botao principal__conteudo__container__inputs__button__botao-meio" name="taxaDeIndex" onclick="botaoSelecionado(1, 'taxaDeIndex', ['pre', 'pos', 'fixado'])">POS</button>
+            <button class="principal__conteudo__container__inputs__button__botao principal__conteudo__container__inputs__button__botao--right" name="taxaDeIndex" onclick="botaoSelecionado(2, 'taxaDeIndex', ['pre', 'pos', 'fixado'])">FIXADO</button>
+          </div>
+          <div class="principal__conteudo__container__inputs__input principal__conteudo__container__inputs__input--right">
+            <p>Aporte Mensal</p>
+            <input type="text" class="principal__conteudo__container__inputs__input__entrada" oninput="validarInputDoTipoMonetario(3, '', 'aptMensal')" onblur="validarInputDoTipoMonetario(3, 'resultado', 'aptMensal')" onclick="pegarValor(3)">
+            <p class="invalido">Aporte deve ser um número</p>
+          </div>
+          <div class="principal__conteudo__container__inputs__input principal__conteudo__container__inputs__input--right">
+            <p>Rentabilidade</p>
+            <input type="text" class="principal__conteudo__container__inputs__input__entrada" oninput="validarRentabilidade(4, 'rentabilidade')" onblur="validarRentabilidade(4, 'resultado')" onclick="pegarRentabilidade(4)">
+            <p class="invalido invalido--rentabilidade">Rentabilidade deve ser um número</p>
+          </div>
+          <div class="principal__conteudo__container__inputs__input principal__conteudo__container__inputs__input--right">
+            <p>CDI (ao ano)</p>
+            <input type="text" id="cdi" class="principal__conteudo__container__inputs__input__entrada" disabled>
+          </div>
+          <button class="principal__conteudo__container__inputs__acao principal__conteudo__container__inputs__acao--right" onclick="simularInvestimento()" name="simular">Simular</button>
+        </section>
+      </article>
+    </section>
+
+
+
+    <section class="principal__conteudo principal__conteudo--resultado">
+      <article class="principal__conteudo__item">
+        <h2 class="principal__conteudo__item__subtitulo">Resultado da Simulação</h2>
+        <div class="principal__conteudo__item__container">
+          <!-- Resultado inserido via JavaScript -->
+        </div>
+      </article>
+
+      <article class="principal__conteudo__item">
+        <h2 class="principal__conteudo__grafico__subtitulo">Projeção de Valores</h2>
+        <div class="principal__conteudo__grafico__container">
+          <p class="principal__conteudo__grafico__container__valor">Valor (R$)</p>
+          <div class="principal__conteudo__grafico__container__grafico">
+            <!-- Gráfico inserido via JavaScript -->
+          </div>
+        </div>
+        <p class="principal__conteudo__grafico__tempo">Tempo (meses)</p>
+        <div class="principal__conteudo__grafico__legenda"> 
+          <div class="principal__conteudo__grafico__legenda__tipo principal__conteudo__grafico__legenda__tipo--caporte">
+            <div class="principal__conteudo__grafico__legenda__tipo__bola principal__conteudo__grafico__legenda__tipo__bola--caporte"></div>
+            <span>Com aporte</span>
+          </div>
+
+          <div class="principal__conteudo__grafico__legenda__tipo">
+            <div class="principal__conteudo__grafico__legenda__tipo__bola principal__conteudo__grafico__legenda__tipo__bola--saporte"></div>
+            <span>Sem aporte</span>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
