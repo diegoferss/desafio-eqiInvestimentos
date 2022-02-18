@@ -27,5 +27,5 @@ Esse README representa as propriedades funcionais da aplicação front-end do de
 Faça o clone/download deste repositório
 
 - **Executando a api-fake:** Entre no diretório ```desafio-fake-api-main``` e execute o comando ```npm install``` e ```npx json-server db.json```.
-- **Executando a aplicação front-end:** Após executar a ```fake-api```, entre no diretório ```front-end``` e abra o arquivo ```index.html``` em um navegador ou abra utilizando a extensão ```live server``` do ```vscode```.
+- **Executando a aplicação front-end:** Após executar a ```api-fake```, entre no diretório ```front-end``` e abra o arquivo ```index.html``` em um navegador ou abra utilizando a extensão ```live server``` do ```vscode```.
 - **Executando os testes unitários:** Entre no diretório ```front-end``` e execute o comando ```npm install```. Após isso, no terminal execute o comando ```npm t```.
